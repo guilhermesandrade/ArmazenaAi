@@ -15,13 +15,68 @@ Excesso de produtos parados sem giro.
 
 Erros manuais em planilhas.
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 🛠️ Tecnologias Utilizadas
+#### 🔹 Front-end
 
-- React
+React.js (com Vite) para criação da interface dinâmica e responsiva.
 
-- JavaScript 
+JavaScript para a lógica de interação e manipulação de dados.
 
-- Vites
+#### 🔹 Back-end
+
+Node.js + Express.js para criação de rotas e API REST.
+
+Implementação de endpoints para cadastro, edição, exclusão e listagem de produtos.
+
+#### 🔹 Banco de Dados
+
+MongoDB (NoSQL): utilizado para dados dinâmicos e flexíveis, como histórico de movimentações e registros de operações.
+
+SQL Server (Relacional): utilizado para garantir consistência em tabelas estruturadas, como cadastro de produtos, categorias e usuários.
+
+Integração entre os bancos para unir escalabilidade (MongoDB) e consistência transacional (SQL Server).
+
+#### 🔹 Criptografia e Segurança
+
+JWT (JSON Web Token) para autenticação de usuários.
+
+Bcrypt para criptografia de senhas e proteção de dados sensíveis.
+
+#### 🔹 Containerização
+
+Docker para padronização do ambiente de desenvolvimento e implantação da aplicação.
+
+Criação de containers separados para Front-end, Back-end e Banco de Dados, facilitando escalabilidade.
+
+#### 🔹 Inteligência Artificial
+
+Utilização de modelos preditivos para sugerir reposição de produtos com base no histórico de vendas.
+
+Implementação de algoritmos simples para previsão de demanda e detecção de padrões de consumo.
+
+## 🏗️ Arquitetura da Aplicação
+
+A aplicação será estruturada em uma arquitetura baseada em camadas:
+
+#### Camada de Apresentação (Front-end):
+Interface desenvolvida em React, responsável pela interação com o usuário, exibição do estoque e formulários de cadastro.
+
+#### Camada de Lógica (Back-end):
+API desenvolvida em Node.js + Express, que processa requisições, aplica regras de negócio e integra com o banco de dados.
+
+#### Camada de Dados (Banco de Dados):
+SQL Server para informações relacionais (produtos, categorias, usuários).
+
+MongoDB para dados não estruturados (movimentações, registros históricos, logs).
+
+#### Camada de Segurança:
+Mecanismos de autenticação (JWT) e criptografia (Bcrypt) garantem acesso seguro às funcionalidades.
+
+#### Camada de Inteligência:
+Algoritmos de IA oferecem insights sobre reposição e previsão de demanda.
+
+#### Containerização: 
+Docker orquestra os serviços em ambientes isolados, facilitando a execução local e a implantação em servidores de produção.
 
 ## 🛠️ Funcionalidades (planejadas)
 
