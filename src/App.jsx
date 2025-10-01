@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import boxLogo from './images/box.png'
 import './App.css'
 
 function App() {
@@ -9,25 +8,25 @@ function App() {
   return (
     <>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
+        <a  target="_blank" rel="noopener noreferrer">
+          <img src={boxLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>Em breve ArmazenaAi</h1>
+      <h2>A tela de dashboards do mais novo app para Controle de estoque</h2>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+          Brinque com o contador por enquanto... {count}
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <a
+        className="read-the-docs"
+        href="https://github.com/guilhermesandrade/ArmazenaAi#"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Clique aqui e vá para meu repositório
+      </a>
     </>
   )
 }
