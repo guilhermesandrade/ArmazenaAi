@@ -1,12 +1,13 @@
-const express = require('express'); 
-const app = express(); 
-const port = 3000; 
+const express = require("express");
+const app = express();
+const routes = require("./api/repository/routes");
+
+app.use(express.json());
 
 
-app.get('/', (req, res) => {
-    res.send('Olá, Mundo!');
-});
+app.use("/api", routes);
 
-app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
