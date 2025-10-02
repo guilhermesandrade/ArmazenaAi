@@ -1,14 +1,17 @@
 import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import boxLogo from './images/box.png'
 import './App.css'
+import Dashboard from './pages/Dashboard'
 
-function App() {
+function Home() {
   const [count, setCount] = useState(0)
+  const navigate = useNavigate()
 
   return (
     <>
       <div>
-        <a  target="_blank" rel="noopener noreferrer">
+        <a target="_blank" rel="noopener noreferrer">
           <img src={boxLogo} className="logo react" alt="React logo" />
         </a>
       </div>
@@ -19,6 +22,12 @@ function App() {
           Brinque com o contador por enquanto... {count}
         </button>
       </div>
+
+      {/* Botão que leva até a tela Dashboard */}
+      <button onClick={() => navigate('/dashboard')}>
+        Ir para Dashboard
+      </button>
+
       <a
         className="read-the-docs"
         href="https://github.com/guilhermesandrade/ArmazenaAi#"
@@ -28,6 +37,17 @@ function App() {
         Clique aqui e vá para meu repositório
       </a>
     </>
+  )
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </Router>
   )
 }
 
