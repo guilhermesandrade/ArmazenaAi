@@ -1,126 +1,125 @@
-// src/pages/Dashboard.jsx
-import { useState, useEffect } from "react";
+import React from "react";
 import {
   BarChart,
   Bar,
+  LineChart,
+  Line,
   PieChart,
   Pie,
   Cell,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
-  Legend,
-  ResponsiveContainer
+  ResponsiveContainer,
 } from "recharts";
 
-function Dashboard() {
-  // Estados simulando dados de estoque
-  const [produtos, setProdutos] = useState([]);
-  const [loading, setLoading] = useState(true);
-
+const Dashboard = () => {
   // Dados fictícios
-  const dadosFicticios = [
-    { id: 1, nome: "Arroz", quantidade: 20, minimo: 10, maximo: 50, vendidos: 8 },
-    { id: 2, nome: "Feijão", quantidade: 5, minimo: 15, maximo: 40, vendidos: 12 },
-    { id: 3, nome: "Macarrão", quantidade: 60, minimo: 20, maximo: 50, vendidos: 15 },
-    { id: 4, nome: "Óleo", quantidade: 12, minimo: 8, maximo: 25, vendidos: 6 },
-    { id: 5, nome: "Sal", quantidade: 2, minimo: 5, maximo: 20, vendidos: 3 }
+  const vendas = [
+    { produto: "Mouse", qtd: 120 },
+    { produto: "Teclado", qtd: 90 },
+    { produto: "Monitor", qtd: 70 },
+    { produto: "Notebook", qtd: 50 },
+    { produto: "Cadeira", qtd: 40 },
   ];
 
-  useEffect(() => {
-    // Simulando carregamento (como se fosse API)
-    setTimeout(() => {
-      setProdutos(dadosFicticios);
-      setLoading(false);
-    }, 1000);
-  }, []);
+  const movimentacao = [
+    { mes: "Jan", entrada: 300, saida: 200 },
+    { mes: "Fev", entrada: 280, saida: 230 },
+    { mes: "Mar", entrada: 350, saida: 300 },
+    { mes: "Abr", entrada: 400, saida: 320 },
+    { mes: "Mai", entrada: 420, saida: 380 },
+  ];
 
-  if (loading) return <p style={{ color: "#fff" }}>Carregando dados...</p>;
+  const categorias = [
+    { name: "Informática", value: 400 },
+    { name: "Móveis", value: 300 },
+    { name: "Papelaria", value: 200 },
+    { name: "Outros", value: 100 },
+  ];
 
-  // Separando dados para relatórios
-  const produtosParaComprar = produtos.filter(p => p.quantidade < p.minimo);
-  const produtosExcesso = produtos.filter(p => p.quantidade > p.maximo);
+  const estoqueAtual = [
+    { produto: "Mouse", qtd: 80 },
+    { produto: "Teclado", qtd: 60 },
+    { produto: "Monitor", qtd: 25 },
+    { produto: "Notebook", qtd: 15 },
+    { produto: "Cadeira", qtd: 10 },
+  ];
 
-  // Preparando dados para os gráficos
-  const vendasData = produtos.map(p => ({ nome: p.nome, vendidos: p.vendidos }));
-  const estoqueData = produtos.map(p => ({ nome: p.nome, quantidade: p.quantidade }));
-
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#845EC2"];
+  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
   return (
-    <div style={{ padding: "20px", backgroundColor: "#1e1e1e", minHeight: "100vh", color: "#fff" }}>
-      <h1>📊 Dashboard de Estoque</h1>
+    <div className="min-h-screen bg-gray-900 text-white p-6">
+      <h1 className="text-3xl font-bold mb-6">📦 Dashboard de Estoque</h1>
 
-      {/* Produtos que precisam ser comprados */}
-      <div style={{ marginTop: "20px" }}>
-        <h2>⚠️ Produtos para comprar</h2>
-        {produtosParaComprar.length > 0 ? (
-          <ul>
-            {produtosParaComprar.map(p => (
-              <li key={p.id}>{p.nome} (Quantidade atual: {p.quantidade}, mínimo: {p.minimo})</li>
-            ))}
-          </ul>
-        ) : (
-          <p>Todos os produtos estão dentro do limite mínimo ✅</p>
-        )}
-      </div>
+      {/* GRID: Desktop = 2 colunas, Mobile = 1 */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+        
+        {/* Produtos mais vendidos */}
+        <div className="bg-gray-800 p-6 rounded-2xl shadow-lg">
+          <h2 className="text-xl font-semibold mb-4">Produtos mais vendidos</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={vendas}>
+              <XAxis dataKey="produto" stroke="#ccc" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="qtd" fill="#00C49F" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
 
-      {/* Produtos em excesso */}
-      <div style={{ marginTop: "20px" }}>
-        <h2>📦 Produtos em excesso</h2>
-        {produtosExcesso.length > 0 ? (
-          <ul>
-            {produtosExcesso.map(p => (
-              <li key={p.id}>{p.nome} (Quantidade atual: {p.quantidade}, máximo: {p.maximo})</li>
-            ))}
-          </ul>
-        ) : (
-          <p>Não há produtos em excesso ✅</p>
-        )}
-      </div>
+        {/* Entradas e saídas */}
+        <div className="bg-gray-800 p-6 rounded-2xl shadow-lg">
+          <h2 className="text-xl font-semibold mb-4">Entradas x Saídas</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={movimentacao}>
+              <XAxis dataKey="mes" stroke="#ccc" />
+              <YAxis />
+              <Tooltip />
+              <Line type="monotone" dataKey="entrada" stroke="#00C49F" />
+              <Line type="monotone" dataKey="saida" stroke="#FF8042" />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
 
-      {/* Gráfico de vendas */}
-      <div style={{ marginTop: "40px", height: "300px" }}>
-        <h2>📅 Vendas por produto</h2>
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={vendasData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="nome" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="vendidos" fill="#00C49F" />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+        {/* Estoque por categoria */}
+        <div className="bg-gray-800 p-6 rounded-2xl shadow-lg">
+          <h2 className="text-xl font-semibold mb-4">Estoque por categoria</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={categorias}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                outerRadius={120}
+                dataKey="value"
+                label
+              >
+                {categorias.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
 
-      {/* Gráfico de estoque atual */}
-      <div style={{ marginTop: "40px", height: "300px" }}>
-        <h2>📦 Estoque atual</h2>
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie
-              data={estoqueData}
-              dataKey="quantidade"
-              nameKey="nome"
-              cx="50%"
-              cy="50%"
-              outerRadius={100}
-              fill="#8884d8"
-              label
-            >
-              {estoqueData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend />
-          </PieChart>
-        </ResponsiveContainer>
+        {/* Nível de estoque */}
+        <div className="bg-gray-800 p-6 rounded-2xl shadow-lg">
+          <h2 className="text-xl font-semibold mb-4">Nível de estoque</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart layout="vertical" data={estoqueAtual}>
+              <XAxis type="number" />
+              <YAxis dataKey="produto" type="category" stroke="#ccc" />
+              <Tooltip />
+              <Bar dataKey="qtd" fill="#0088FE" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default Dashboard;
