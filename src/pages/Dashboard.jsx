@@ -1,272 +1,126 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+// src/pages/Dashboard.jsx
+import { useState, useEffect } from "react";
 import {
-  LineChart,
-  Line,
   BarChart,
   Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
   PieChart,
   Pie,
   Cell,
+  XAxis,
+  YAxis,
   CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer
 } from "recharts";
 
-// Dashboard.jsx
-// Componente pronto para integrar ao seu projeto React (Vite + Tailwind).
-// Como usar:
-// 1) Coloque este arquivo em src/pages/Dashboard.jsx
-// 2) Instale dependências: npm install recharts axios
-// 3) Importe a rota no seu router (ex: /dashboard)
-// O componente tenta buscar os dados em /api/dashboard (GET). Se não houver API,
-// ele usa dados mock para demonstrar os gráficos e tabelas.
-
-const COLORS = ["#4f46e5", "#06b6d4", "#f97316", "#ef4444", "#10b981"];
-
-export default function Dashboard() {
-  const [data, setData] = useState(null);
+function Dashboard() {
+  // Estados simulando dados de estoque
+  const [produtos, setProdutos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, /*setError*/] = useState(null);
+
+  // Dados fictícios
+  const dadosFicticios = [
+    { id: 1, nome: "Arroz", quantidade: 20, minimo: 10, maximo: 50, vendidos: 8 },
+    { id: 2, nome: "Feijão", quantidade: 5, minimo: 15, maximo: 40, vendidos: 12 },
+    { id: 3, nome: "Macarrão", quantidade: 60, minimo: 20, maximo: 50, vendidos: 15 },
+    { id: 4, nome: "Óleo", quantidade: 12, minimo: 8, maximo: 25, vendidos: 6 },
+    { id: 5, nome: "Sal", quantidade: 2, minimo: 5, maximo: 20, vendidos: 3 }
+  ];
 
   useEffect(() => {
-    let mounted = true;
-
-    const fetchData = async () => {
-      try {
-        const res = await axios.get("/api/dashboard");
-        if (mounted && res.data) {
-          setData(res.data);
-        }
-      } catch (err) {
-        // se a API não existir, usamos mock local
-        console.warn("Não foi possível buscar /api/dashboard — usando mock.", err.message);
-        if (mounted) setData(mockData());
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    };
-
-    fetchData();
-    return () => (mounted = false);
+    // Simulando carregamento (como se fosse API)
+    setTimeout(() => {
+      setProdutos(dadosFicticios);
+      setLoading(false);
+    }, 1000);
   }, []);
 
-  if (loading) return <div className="p-6">Carregando dashboard...</div>;
-  if (error) return <div className="p-6 text-red-600">Erro: {error}</div>;
+  if (loading) return <p style={{ color: "#fff" }}>Carregando dados...</p>;
 
-  // --- calculos e derivacoes ---
-  const totalProducts = data.products.length;
-  const outThisMonth = sumBy(data.movements, "monthOut");
-  const outThisWeek = sumBy(data.movements, "weekOut");
-  const outToday = sumBy(data.movements, "dayOut");
+  // Separando dados para relatórios
+  const produtosParaComprar = produtos.filter(p => p.quantidade < p.minimo);
+  const produtosExcesso = produtos.filter(p => p.quantidade > p.maximo);
 
-  const needReorder = data.products.filter((p) => p.stock <= p.minQuantity);
-  const overstock = data.products.filter((p) => p.stock >= p.maxQuantity);
+  // Preparando dados para os gráficos
+  const vendasData = produtos.map(p => ({ nome: p.nome, vendidos: p.vendidos }));
+  const estoqueData = produtos.map(p => ({ nome: p.nome, quantidade: p.quantidade }));
 
-  const dailySeries = data.timeSeries.daily; // array {date, out}
-  const weeklySeries = data.timeSeries.weekly; // array {week, out}
-  const monthlySeries = data.timeSeries.monthly; // array {month, out}
-
-  const productDistribution = data.products.map((p) => ({
-    name: p.name,
-    value: p.stock,
-  }));
+  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#845EC2"];
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-      <header className="mb-6">
-        <h1 className="text-2xl font-semibold">Dashboard — ArmazenaAi</h1>
-        <p className="text-sm text-gray-500">Visão geral do estoque e indicadores principais</p>
-      </header>
+    <div style={{ padding: "20px", backgroundColor: "#1e1e1e", minHeight: "100vh", color: "#fff" }}>
+      <h1>📊 Dashboard de Estoque</h1>
 
-      {/* KPI cards */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <Card title="Produtos cadastrados" value={totalProducts} />
-        <Card title="Saídas (mês)" value={outThisMonth} />
-        <Card title="Saídas (semana)" value={outThisWeek} />
-        <Card title="Saídas (hoje)" value={outToday} />
-      </section>
-
-      {/* Charts area */}
-      <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        <div className="lg:col-span-2 bg-white rounded-2xl p-4 shadow">
-          <h2 className="text-lg font-medium mb-3">Tendência de Saídas (últimos 30 dias)</h2>
-          <div style={{ height: 260 }}>
-            <ResponsiveContainer>
-              <LineChart data={dailySeries} margin={{ top: 8, right: 24, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="out" stroke="#4f46e5" strokeWidth={2} dot={false} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <SmallStat title="Mês" series={monthlySeries} />
-            <SmallStat title="Semana" series={weeklySeries} />
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-4 shadow">
-          <h2 className="text-lg font-medium mb-3">Distribuição de Estoque</h2>
-          <div style={{ height: 260 }}>
-            <ResponsiveContainer>
-              <PieChart>
-                <Pie data={productDistribution} dataKey="value" nameKey="name" outerRadius={80} fill="#8884d8">
-                  {productDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      </section>
-
-      {/* Low stock / Overstock lists */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <ListCard title="Produtos que precisam recomprar" items={needReorder} emptyMessage="Nenhum produto abaixo do mínimo" />
-        <ListCard title="Produtos em excesso" items={overstock} emptyMessage="Nenhum produto acima do máximo" />
-      </section>
-
-      {/* Detailed table */}
-      <section className="bg-white rounded-2xl p-4 shadow">
-        <h2 className="text-lg font-medium mb-3">Inventário — Detalhes</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="text-sm text-gray-600 border-b">
-                <th className="py-2">SKU</th>
-                <th className="py-2">Produto</th>
-                <th className="py-2">Categoria</th>
-                <th className="py-2">Tamanho</th>
-                <th className="py-2">Estoque</th>
-                <th className="py-2">Mínimo</th>
-                <th className="py-2">Máximo</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.products.map((p) => (
-                <tr key={p.id} className="border-b hover:bg-gray-50">
-                  <td className="py-3 text-sm">{p.sku}</td>
-                  <td className="py-3 text-sm">{p.name}</td>
-                  <td className="py-3 text-sm">{p.category}</td>
-                  <td className="py-3 text-sm">{p.size ?? "-"}</td>
-                  <td className="py-3 text-sm">{p.stock}</td>
-                  <td className="py-3 text-sm">{p.minQuantity}</td>
-                  <td className="py-3 text-sm">{p.maxQuantity}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <footer className="mt-6 text-sm text-gray-500">Última atualização: {new Date().toLocaleString()}</footer>
-    </div>
-  );
-}
-
-// ----- Componentes auxiliares -----
-function Card({ title, value }) {
-  return (
-    <div className="bg-white rounded-2xl p-4 shadow flex items-center justify-between">
-      <div>
-        <div className="text-xs text-gray-500">{title}</div>
-        <div className="text-2xl font-semibold">{value}</div>
+      {/* Produtos que precisam ser comprados */}
+      <div style={{ marginTop: "20px" }}>
+        <h2>⚠️ Produtos para comprar</h2>
+        {produtosParaComprar.length > 0 ? (
+          <ul>
+            {produtosParaComprar.map(p => (
+              <li key={p.id}>{p.nome} (Quantidade atual: {p.quantidade}, mínimo: {p.minimo})</li>
+            ))}
+          </ul>
+        ) : (
+          <p>Todos os produtos estão dentro do limite mínimo ✅</p>
+        )}
       </div>
-      <div className="text-gray-300 text-3xl">📦</div>
-    </div>
-  );
-}
 
-function SmallStat({ title, series }) {
-  // mostra um pequeno bar chart
-  return (
-    <div className="bg-gray-50 rounded p-3">
-      <div className="flex items-center justify-between mb-2">
-        <div className="text-sm text-gray-600">{title}</div>
-        <div className="text-sm font-medium">Total: {sumBy(series, "out")}</div>
+      {/* Produtos em excesso */}
+      <div style={{ marginTop: "20px" }}>
+        <h2>📦 Produtos em excesso</h2>
+        {produtosExcesso.length > 0 ? (
+          <ul>
+            {produtosExcesso.map(p => (
+              <li key={p.id}>{p.nome} (Quantidade atual: {p.quantidade}, máximo: {p.maximo})</li>
+            ))}
+          </ul>
+        ) : (
+          <p>Não há produtos em excesso ✅</p>
+        )}
       </div>
-      <div style={{ height: 80 }}>
-        <ResponsiveContainer>
-          <BarChart data={series} margin={{ left: -20, right: 0 }}>
-            <XAxis dataKey={Object.keys(series[0] || {})[0]} hide />
-            <YAxis hide />
+
+      {/* Gráfico de vendas */}
+      <div style={{ marginTop: "40px", height: "300px" }}>
+        <h2>📅 Vendas por produto</h2>
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={vendasData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="nome" />
+            <YAxis />
             <Tooltip />
-            <Bar dataKey="out" fill="#06b6d4" />
+            <Legend />
+            <Bar dataKey="vendidos" fill="#00C49F" />
           </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Gráfico de estoque atual */}
+      <div style={{ marginTop: "40px", height: "300px" }}>
+        <h2>📦 Estoque atual</h2>
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={estoqueData}
+              dataKey="quantidade"
+              nameKey="nome"
+              cx="50%"
+              cy="50%"
+              outerRadius={100}
+              fill="#8884d8"
+              label
+            >
+              {estoqueData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
         </ResponsiveContainer>
       </div>
     </div>
   );
 }
 
-function ListCard({ title, items, emptyMessage }) {
-  return (
-    <div className="bg-white rounded-2xl p-4 shadow">
-      <h3 className="text-md font-medium mb-3">{title}</h3>
-      <div className="space-y-2">
-        {items.length === 0 ? (
-          <div className="text-sm text-gray-500">{emptyMessage}</div>
-        ) : (
-          items.map((p) => (
-            <div key={p.id} className="flex items-center justify-between p-2 rounded hover:bg-gray-50">
-              <div>
-                <div className="text-sm font-medium">{p.name}</div>
-                <div className="text-xs text-gray-500">Estoque: {p.stock} · Mín: {p.minQuantity} · Máx: {p.maxQuantity}</div>
-              </div>
-              <div className="text-sm">SKU: {p.sku}</div>
-            </div>
-          ))
-        )}
-      </div>
-    </div>
-  );
-}
-
-// ----- utilidades -----
-function sumBy(list, key) {
-  if (!Array.isArray(list)) return 0;
-  return list.reduce((acc, cur) => acc + (Number(cur[key]) || 0), 0);
-}
-
-function mockData() {
-  // exemplo de payload esperado pela tela
-  const products = [
-    { id: 1, sku: "CAM001", name: "Camiseta Básica", category: "Camisetas", size: "M", stock: 8, minQuantity: 5, maxQuantity: 50 },
-    { id: 2, sku: "CAL001", name: "Calça Jeans", category: "Calças", size: "40", stock: 2, minQuantity: 3, maxQuantity: 30 },
-    { id: 3, sku: "BLZ001", name: "Blazer Social", category: "Casacos", size: "G", stock: 60, minQuantity: 2, maxQuantity: 40 },
-    { id: 4, sku: "SAP001", name: "Sapato Casual", category: "Calçados", size: "42", stock: 12, minQuantity: 4, maxQuantity: 20 },
-  ];
-
-  // séries temporais: daily (últimos 30 dias), weekly (últimas 12 semanas), monthly (últimos 6 meses)
-  const daily = Array.from({ length: 30 }).map((_, i) => ({ date: formatDateOffset(-29 + i), out: Math.floor(Math.random() * 6) }));
-  const weekly = Array.from({ length: 12 }).map((_, i) => ({ week: `W${12 - i}`, out: Math.floor(Math.random() * 40) }));
-  const monthly = Array.from({ length: 6 }).map((_, i) => ({ month: `M${6 - i}`, out: Math.floor(Math.random() * 160) }));
-
-  // movimentos agregados
-  const movements = [
-    { monthOut: sumBy(daily, "out"), weekOut: sumBy(weekly, "out"), dayOut: daily[daily.length - 1].out },
-  ];
-
-  return {
-    products,
-    timeSeries: { daily, weekly, monthly },
-    movements,
-  };
-}
-
-function formatDateOffset(offset) {
-  const d = new Date();
-  d.setDate(d.getDate() + offset);
-  return d.toISOString().slice(0, 10);
-}
+export default Dashboard;
