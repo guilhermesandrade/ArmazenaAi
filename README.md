@@ -142,6 +142,20 @@ Exportação de dados para Excel/PDF.
 
 Deploy em produção (Vercel, Netlify ou Firebase Hosting).
 
+## 📊 Contribuição no Projeto
+
+Minha contribuição no projeto está focada na implementação da tela de Dashboard, que será responsável por consolidar e exibir as informações do estoque de forma visual e dinâmica. O objetivo do código desenvolvido é criar gráficos e indicadores que mostrem, por exemplo:
+
+Quantidade de produtos que saíram do estoque por dia, semana e mês.
+
+Produtos abaixo da quantidade mínima definida (necessidade de reposição).
+
+Produtos acima da quantidade máxima definida (excesso de estoque).
+
+Essa parte do sistema será integrada ao projeto final em grupo consumindo os dados cadastrados no banco (via API/db.json), permitindo que o usuário tenha uma visão clara da situação do estoque e possa tomar decisões de forma mais rápida e eficiente.
+
+Após a finalização da tela de Dashboard, também irei auxiliar na melhoria e conclusão de outras partes do projeto, garantindo maior integração entre os módulos.
+
 ## 👨‍💻 Autores
 
 Projeto desenvolvido pelo Grupo composto por:
