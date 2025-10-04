@@ -16,6 +16,23 @@ async function loginUser(req, res) {
   }
 }
 
+async function recoverPassword(req, res) {
+  try {
+    const { email } = req.body;
+
+    const result = await userService.recoverPassword(email);
+
+    if (!result.success) {
+      return res.status(404).json({ message: result.message });
+    }
+
+    return res.status(200).json({ message: result.message });
+  } catch (error) {
+    return res.status(500).json({ message: "Error recovering password", error: error.message });
+  }
+}
+
 module.exports = {
   loginUser,
+  recoverPassword
 };

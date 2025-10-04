@@ -10,6 +10,23 @@ async function loginUser({ email, senha }) {
   return usuario || null;
 }
 
+async function recoverPassword(email) {
+  const user = users.find((u) => u.email === email);
+
+  if (!user) {
+    return { success: false, message: "User not found!" };
+  }
+
+  // Simulate sending email
+  console.log(`Password recovery email sent to: ${email}`);
+
+  return {
+    success: true,
+    message: `Password recovery instructions were sent to ${email}.`
+  };
+}
+
 module.exports = {
   loginUser,
+  recoverPassword
 };
