@@ -1,0 +1,25 @@
+# fly.toml app configuration file generated for armazenaai-web on 2025-11-13T11:04:43-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'armazenaai-web'
+primary_region = 'gru'
+
+[build]
+  dockerfile = 'Dockerfile.prod'
+  [build.args]
+    VITE_API_URL = "https://armazenaai-api.fly.dev"
+
+[http_service]
+  internal_port = 80
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '256mb'
+  cpu_kind = 'shared'
+  cpus = 1
