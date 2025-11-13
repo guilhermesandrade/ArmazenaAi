@@ -19,6 +19,37 @@ const Stock = () => {
     observacao: '',
   });
 
+  // Motivos padronizados por tipo
+  const motivosEntrada = [
+    { value: 'compra', label: 'Compra de Fornecedor' },
+    { value: 'devolucao', label: 'Devolução de Cliente' },
+    { value: 'producao', label: 'Produção Interna' },
+    { value: 'transferencia', label: 'Transferência entre Lojas' },
+    { value: 'ajuste', label: 'Ajuste de Inventário' },
+    { value: 'outro', label: 'Outro' },
+  ];
+
+  const motivosSaida = [
+    { value: 'venda', label: 'Venda' },
+    { value: 'perda', label: 'Perda/Quebra' },
+    { value: 'devolucao_fornecedor', label: 'Devolução ao Fornecedor' },
+    { value: 'uso_interno', label: 'Uso Interno' },
+    { value: 'amostra', label: 'Amostra Grátis' },
+    { value: 'transferencia', label: 'Transferência entre Lojas' },
+    { value: 'ajuste', label: 'Ajuste de Inventário' },
+    { value: 'outro', label: 'Outro' },
+  ];
+
+  const getMotivosDisponiveis = () => {
+    return formData.tipo === 'entrada' ? motivosEntrada : motivosSaida;
+  };
+
+  const getMotivoLabel = (tipo, motivoValue) => {
+    const motivos = tipo === 'entrada' ? motivosEntrada : motivosSaida;
+    const motivo = motivos.find(m => m.value === motivoValue);
+    return motivo ? motivo.label : motivoValue;
+  };
+
   useEffect(() => {
     loadProducts();
     loadMovements();
@@ -70,6 +101,14 @@ const Stock = () => {
     }
   };
 
+  const handleTipoChange = (e) => {
+    setFormData({
+      ...formData,
+      tipo: e.target.value,
+      motivo: '', // Resetar motivo ao mudar tipo
+    });
+  };
+
   const resetForm = () => {
     setFormData({
       produto: '',
@@ -96,12 +135,16 @@ const Stock = () => {
       key: 'tipo',
       render: (value) => (
         <span className={`badge badge-${value}`}>
-          {value === 'entrada' ? 'Entrada' : 'Saída'}
+          {value === 'entrada' ? '➕ Entrada' : '➖ Saída'}
         </span>
       ),
     },
     { label: 'Quantidade', key: 'quantidade' },
-    { label: 'Motivo', key: 'motivo' },
+    {
+      label: 'Motivo',
+      key: 'motivo',
+      render: (value, row) => getMotivoLabel(row.tipo, value),
+    },
     {
       label: 'Usuário',
       key: 'usuario',
@@ -163,16 +206,16 @@ const Stock = () => {
                 </div>
 
                 <div className="input-group">
-                  <label>Tipo *</label>
+                  <label>Tipo de Movimentação *</label>
                   <select
                     name="tipo"
                     value={formData.tipo}
-                    onChange={handleChange}
+                    onChange={handleTipoChange}
                     required
                     className="input-field"
                   >
-                    <option value="entrada">Entrada</option>
-                    <option value="saida">Saída</option>
+                    <option value="entrada">➕ Entrada (Adicionar ao Estoque)</option>
+                    <option value="saida">➖ Saída (Remover do Estoque)</option>
                   </select>
                 </div>
 
@@ -186,14 +229,23 @@ const Stock = () => {
                   min="1"
                 />
 
-                <Input
-                  label="Motivo"
-                  name="motivo"
-                  value={formData.motivo}
-                  onChange={handleChange}
-                  required
-                  placeholder="Ex: Compra, Venda, Devolução, etc."
-                />
+                <div className="input-group">
+                  <label>Motivo *</label>
+                  <select
+                    name="motivo"
+                    value={formData.motivo}
+                    onChange={handleChange}
+                    required
+                    className="input-field"
+                  >
+                    <option value="">Selecione o motivo...</option>
+                    {getMotivosDisponiveis().map((motivo) => (
+                      <option key={motivo.value} value={motivo.value}>
+                        {motivo.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
                 <Input
                   label="Observação"
