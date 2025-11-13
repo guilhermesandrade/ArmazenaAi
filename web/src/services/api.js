@@ -138,4 +138,19 @@ export const stockService = {
   },
 };
 
+// Serviços de IA
+export const aiService = {
+  predictDemand: async (productId, days = 30) => {
+    const response = await api.get(`/ai/predict/${productId}`, {
+      params: { days },
+    });
+    return response.data;
+  },
+
+  getReplenishmentSuggestions: async () => {
+    const response = await api.get('/ai/replenishment');
+    return response.data;
+  },
+};
+
 export default api;
