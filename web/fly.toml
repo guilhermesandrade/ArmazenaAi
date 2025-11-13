@@ -9,7 +9,7 @@ primary_region = 'gru'
 [build]
   dockerfile = 'Dockerfile.prod'
   [build.args]
-    VITE_API_URL = "/api"
+    VITE_API_URL = "https://armazenaai-api.fly.dev"
 
 [http_service]
   internal_port = 80
