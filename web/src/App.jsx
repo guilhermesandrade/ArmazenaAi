@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
 import Stock from './pages/Stock';
+import AISuggestions from './pages/AISuggestions';
 
 function App() {
   return (
@@ -35,6 +36,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Stock />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ai-suggestions"
+            element={
+              <PrivateRoute>
+                <AISuggestions />
               </PrivateRoute>
             }
           />

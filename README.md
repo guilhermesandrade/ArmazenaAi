@@ -1,155 +1,529 @@
-# 📦 ArmazenaAi
+# 📦 ArmazenaAi - Sistema Inteligente de Gestão de Estoque
 
-ArmazenaAi é um sistema de controle de estoque para moda, desenvolvido em React + JavaScript.
-O projeto tem como objetivo facilitar a gestão de itens de vestuário e acessórios, garantindo organização, agilidade e controle em tempo real sobre o inventário.
+> Sistema Full Stack moderno para controle de estoque com Inteligência Artificial para previsão de demanda
 
-## 🎯 Objetivo
+**🌐 Acesso à Aplicação Online:** [https://armazenaai-web.fly.dev/](https://armazenaai-web.fly.dev/)
 
-O projeto foi criado para atender a necessidade de lojistas, empreendedores e pequenas empresas do ramo da moda, permitindo o acompanhamento de peças, categorias e quantidades em estoque.
+---
+
+## 🎯 Sobre o Projeto
+
+O **ArmazenaAi** é um sistema completo de gestão de estoque desenvolvido para lojistas e pequenas empresas do ramo da moda. A aplicação oferece controle total sobre o inventário, facilitando a gestão de itens de vestuário e acessórios, garantindo organização, agilidade e controle em tempo real.
 
 Com ele é possível evitar problemas como:
+- Perda de vendas por falta de controle de disponibilidade
+- Excesso de produtos parados sem giro
+- Erros manuais em planilhas
 
-Perda de vendas por falta de controle de disponibilidade.
+### Funcionalidades Principais:
+- ✅ Controle de produtos (cadastro, edição, exclusão)
+- ✅ Gestão de categorias
+- ✅ Movimentações de estoque (entrada/saída)
+- ✅ Dashboard com estatísticas em tempo real
+- ✅ **Previsão de demanda com Machine Learning**
+- ✅ Alertas de estoque baixo
+- ✅ Histórico completo de movimentações
 
-Excesso de produtos parados sem giro.
+---
 
-Erros manuais em planilhas.
+## ✅ Requisitos Técnicos Implementados
 
-## 🚀 🛠️ Tecnologias Utilizadas
-#### 🔹 Front-end
+Este projeto atende aos requisitos técnicos da disciplina:
 
-React.js (com Vite) para criação da interface dinâmica e responsiva.
+### 1️⃣ Frontend Moderno
+- **React.js** com Vite
+- Interface **responsiva** e compatível com dispositivos móveis
+- Design moderno com gradientes, animações e componentes reutilizáveis
+- Navegação por rotas (React Router)
+- Gerenciamento de estado com Context API
 
-JavaScript para a lógica de interação e manipulação de dados.
+### 2️⃣ Backend com API REST
+- **Node.js + Express.js**
+- API RESTful completa com operações **CRUD**
+- Endpoints para: Produtos, Categorias, Usuários, Estoque, Movimentações, IA
+- Arquitetura em camadas (Controllers, Services, Models)
+- Validação de dados e tratamento de erros
 
-#### 🔹 Back-end
+### 3️⃣ Banco de Dados
+- **MongoDB (NoSQL)**: Produtos, Usuários, Movimentações, Categorias
+- **SQL Server (Relacional)**: utilizado para garantir consistência em tabelas estruturadas
+- Integração híbrida demonstrando compreensão dos dois modelos
 
-Node.js + Express.js para criação de rotas e API REST.
+### 4️⃣ Criptografia de Senha
+- **Bcrypt** para hash de senhas
+- Salt rounds configurável (padrão: 10)
+- Senhas **nunca** armazenadas em texto plano
+- Método seguro de comparação de senhas
 
-Implementação de endpoints para cadastro, edição, exclusão e listagem de produtos.
+### 5️⃣ Autenticação e Proteção de Rotas
+- **JWT (JSON Web Token)** para autenticação
+- Login com validação de credenciais
+- Middleware de autenticação no backend
+- Proteção de rotas privadas no frontend
+- Interceptors Axios para anexar token automaticamente
+- Logout e renovação de sessão
 
-#### 🔹 Banco de Dados
+### 6️⃣ Containerização com Docker
+- **Dockerfile** para API (Node.js Alpine)
+- **Dockerfile** para Web (Nginx Alpine)
+- **docker-compose.yml** com orquestração completa
+- Ambientes isolados e reproduzíveis
+- Configuração para desenvolvimento e produção
 
-MongoDB (NoSQL): utilizado para dados dinâmicos e flexíveis, como histórico de movimentações e registros de operações.
+### 7️⃣ Uso de Inteligência Artificial
+- **Machine Learning REAL implementado**
+- **Regressão Polinomial** (`ml-regression-polynomial`)
+- Previsão de demanda baseada em histórico de vendas
+- Análise estatística avançada (desvio padrão, volatilidade)
+- Detecção de tendências (Crescente/Decrescente/Estável)
+- Detecção de sazonalidade por dia da semana
+- Ajuste automático de previsões
+- Cálculo de confiabilidade (Alta/Média/Baixa)
+- Recomendações inteligentes contextualizadas
+- **100% gratuito** (sem APIs pagas)
 
-SQL Server (Relacional): utilizado para garantir consistência em tabelas estruturadas, como cadastro de produtos, categorias e usuários.
+### 8️⃣ Documentação
+- ✅ README completo com instruções
+- ✅ Diagrama de arquitetura
+- ✅ Comentários no código
+- ✅ Estrutura organizada e legível
 
-Integração entre os bancos para unir escalabilidade (MongoDB) e consistência transacional (SQL Server).
+### 9️⃣ Apresentação Funcional
+- ✅ Sistema **online e funcional**: [armazenaai-web.fly.dev](https://armazenaai-web.fly.dev/)
+- ✅ Deploy automatizado no Fly.io
+- ✅ Demonstração completa das funcionalidades
 
-#### 🔹 Criptografia e Segurança
+---
 
-JWT (JSON Web Token) para autenticação de usuários.
+## 🛠️ Tecnologias Utilizadas
 
-Bcrypt para criptografia de senhas e proteção de dados sensíveis.
+### Frontend
+- **React.js** - Biblioteca para interfaces
+- **Vite** - Build tool rápido
+- **React Router** - Navegação entre páginas
+- **Axios** - Cliente HTTP
+- **React Toastify** - Notificações
+- **React Icons** - Ícones modernos
 
-#### 🔹 Containerização
+### Backend
+- **Node.js** - Runtime JavaScript
+- **Express.js** - Framework web
+- **JWT** - Autenticação
+- **Bcrypt** - Criptografia de senhas
+- **Mongoose** - ODM para MongoDB
+- **Dotenv** - Variáveis de ambiente
 
-Docker para padronização do ambiente de desenvolvimento e implantação da aplicação.
+### Banco de Dados
+- **MongoDB Atlas** - Banco NoSQL em nuvem
+- **SQL Server** - Banco SQL para dados relacionais
 
-Criação de containers separados para Front-end, Back-end e Banco de Dados, facilitando escalabilidade.
+### Machine Learning
+- **ml-regression-polynomial** - Regressão polinomial
+- **simple-statistics** - Análise estatística
+- Algoritmos próprios de detecção de tendências e sazonalidade
 
-#### 🔹 Inteligência Artificial
+### DevOps & Deploy
+- **Docker** - Containerização
+- **Docker Compose** - Orquestração de containers
+- **Fly.io** - Hospedagem em nuvem
+- **GitHub** - Controle de versão
+- **Git** - Versionamento
 
-Utilização de modelos preditivos para sugerir reposição de produtos com base no histórico de vendas.
-
-Implementação de algoritmos simples para previsão de demanda e detecção de padrões de consumo.
+---
 
 ## 🏗️ Arquitetura da Aplicação
 
-A aplicação será estruturada em uma arquitetura baseada em camadas:
+```
+┌─────────────────────────────────────────────────────────────┐
+│                         FRONTEND                             │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐         │
+│  │  Dashboard  │  │  Produtos   │  │  Estoque    │         │
+│  └─────────────┘  └─────────────┘  └─────────────┘         │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐         │
+│  │     IA      │  │    Login    │  │  Context    │         │
+│  └─────────────┘  └─────────────┘  └─────────────┘         │
+│                    React.js + Vite                           │
+└────────────────────────┬────────────────────────────────────┘
+                         │ HTTPS/REST API
+                         │
+┌────────────────────────▼────────────────────────────────────┐
+│                         BACKEND                              │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │                   Controllers                         │   │
+│  │  Auth │ Products │ Stock │ Categories │ AI           │   │
+│  └───────────────────────┬──────────────────────────────┘   │
+│  ┌───────────────────────▼──────────────────────────────┐   │
+│  │                     Services                          │   │
+│  │  Business Logic │ AI/ML │ Validation                 │   │
+│  └───────────────────────┬──────────────────────────────┘   │
+│  ┌───────────────────────▼──────────────────────────────┐   │
+│  │          Middlewares & Security                       │   │
+│  │       JWT │ Bcrypt │ Auth │ Error Handling           │   │
+│  └───────────────────────┬──────────────────────────────┘   │
+│                    Node.js + Express                         │
+└────────────────────────┬────────────────────────────────────┘
+                         │
+         ┌───────────────┴───────────────┐
+         │                               │
+┌────────▼─────────┐          ┌─────────▼──────────┐
+│   MongoDB        │          │   SQL Server       │
+│  (NoSQL Cloud)   │          │   (Relacional)     │
+│                  │          │                    │
+│ • Users          │          │ • Products (SQL)   │
+│ • Products       │          │ • Categories       │
+│ • Categories     │          │ • Transactions     │
+│ • Movements      │          │                    │
+│ • Stock History  │          │                    │
+└──────────────────┘          └────────────────────┘
+```
 
-#### Camada de Apresentação (Front-end):
-Interface desenvolvida em React, responsável pela interação com o usuário, exibição do estoque e formulários de cadastro.
+### Fluxo de Dados:
+1. **Frontend** faz requisição HTTP para o Backend
+2. **Controller** recebe e valida a requisição
+3. **Middleware** verifica autenticação JWT
+4. **Service** aplica regras de negócio
+5. **Model** interage com o Banco de Dados
+6. **IA** processa dados e retorna previsões
+7. **Response** é enviada de volta ao Frontend
 
-#### Camada de Lógica (Back-end):
-API desenvolvida em Node.js + Express, que processa requisições, aplica regras de negócio e integra com o banco de dados.
+---
 
-#### Camada de Dados (Banco de Dados):
-SQL Server para informações relacionais (produtos, categorias, usuários).
+## ⚡ Funcionalidades
 
-MongoDB para dados não estruturados (movimentações, registros históricos, logs).
+### 👤 Autenticação
+- Login com email e senha
+- Registro de novos usuários
+- Proteção de rotas privadas
+- Logout seguro
 
-#### Camada de Segurança:
-Mecanismos de autenticação (JWT) e criptografia (Bcrypt) garantem acesso seguro às funcionalidades.
+### 📦 Gestão de Produtos
+- Cadastro completo (nome, categoria, cor, tamanho, preço, quantidade)
+- Edição de produtos existentes
+- Exclusão de produtos
+- Listagem com filtros
+- Busca por nome
+- Indicador de estoque baixo
 
-#### Camada de Inteligência:
-Algoritmos de IA oferecem insights sobre reposição e previsão de demanda.
+### 📊 Dashboard
+- Total de produtos cadastrados
+- Produtos com estoque baixo
+- Valor total em estoque
+- Lista de produtos críticos
 
-#### Containerização: 
-Docker orquestra os serviços em ambientes isolados, facilitando a execução local e a implantação em servidores de produção.
+### 🔄 Movimentações de Estoque
+- Entrada de produtos (compra, devolução, produção, etc.)
+- Saída de produtos (venda, perda, devolução ao fornecedor, etc.)
+- Motivos padronizados por tipo
+- Histórico completo de movimentações
+- Atualização automática de estoque
+- Registro de usuário e data/hora
 
-## 🛠️ Funcionalidades (planejadas)
+### 🤖 Inteligência Artificial
+- Previsões de demanda para 7 e 30 dias
+- Análise de tendências de vendas
+- Detecção de sazonalidade
+- Sugestões de reposição prioritárias
+- Níveis de urgência (Crítico, Urgente, Atenção, Normal, Adequado)
+- Cálculo de confiabilidade das previsões
+- Análise de volatilidade
 
-✔️ Cadastro de produtos (nome, categoria, tamanho, cor, preço e quantidade).
+### 🏷️ Categorias
+- Gerenciamento de categorias de produtos
+- Organização do inventário
 
-✔️ Edição e exclusão de itens.
+---
 
-✔️ Controle de entrada e saída de estoque.
+## 🚀 Como Executar o Projeto
 
-✔️ Dashboard com visão geral de produtos.
+### Pré-requisitos
+- **Node.js** 18+
+- **Docker** e **Docker Compose**
+- **MongoDB** (ou usar MongoDB Atlas)
+- **Git**
 
-✔️ Busca e filtros por categoria, gênero e tamanho.
+### Opção 1: Usando Docker (Recomendado)
 
-✔️ Armazenamento local (localStorage ou API futura).
+```bash
+# 1. Clonar o repositório
+git clone https://github.com/ArmazenaAI/ArmazenaAi.git
+cd ArmazenaAi
 
-(novas funcionalidades podem ser adicionadas conforme evolução do projeto)
+# 2. Configurar variáveis de ambiente
+cp api/.env.example api/.env
+# Editar api/.env com suas credenciais
+
+# 3. Subir os containers
+docker-compose up -d
+
+# 4. Acessar a aplicação
+# Frontend: http://localhost
+# Backend: http://localhost:3000
+```
+
+### Opção 2: Execução Local
+
+#### Backend (API)
+```bash
+cd api
+npm install
+cp .env.example .env
+# Configurar .env com MongoDB URI
+npm start
+# API rodando em http://localhost:3000
+```
+
+#### Frontend (Web)
+```bash
+cd web
+npm install
+npm run dev
+# Aplicação rodando em http://localhost:5173
+```
+
+### Variáveis de Ambiente
+
+**api/.env**
+```env
+PORT=3000
+NODE_ENV=development
+MONGODB_URI=mongodb://localhost:27017/armazenaai
+JWT_SECRET=seu_secret_seguro_aqui
+JWT_EXPIRES_IN=7d
+SALT_ROUNDS=10
+```
+
+---
 
 ## 📂 Estrutura do Projeto
 
+```
 ArmazenaAi/
+├── api/                          # Backend (Node.js)
+│   ├── config/                   # Configurações
+│   ├── controllers/              # Controladores REST
+│   │   ├── authController.js
+│   │   ├── productController.js
+│   │   ├── stockController.js
+│   │   ├── categoryController.js
+│   │   └── aiController.js
+│   ├── middlewares/              # Middlewares
+│   │   └── authMiddleware.js
+│   ├── models/                   # Modelos MongoDB
+│   │   ├── User.js
+│   │   ├── Product.js
+│   │   ├── Category.js
+│   │   └── StockMovement.js
+│   ├── service/                  # Lógica de negócio
+│   │   ├── authService.js
+│   │   ├── productService.js
+│   │   ├── categoryService.js
+│   │   └── aiService.js          # 🤖 IA/ML
+│   ├── repository/               # Rotas
+│   ├── Dockerfile
+│   ├── package.json
+│   └── index.js
+│
+├── web/                          # Frontend (React)
+│   ├── src/
+│   │   ├── components/           # Componentes reutilizáveis
+│   │   │   ├── Button/
+│   │   │   ├── Card/
+│   │   │   ├── Input/
+│   │   │   ├── Layout/
+│   │   │   └── Table/
+│   │   ├── pages/                # Páginas
+│   │   │   ├── Dashboard/
+│   │   │   ├── Login/
+│   │   │   ├── Products/
+│   │   │   ├── Stock/
+│   │   │   └── AISuggestions/
+│   │   ├── context/              # Context API
+│   │   │   └── AuthContext.jsx
+│   │   ├── services/             # API Client
+│   │   │   └── api.js
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── Dockerfile.prod
+│   ├── nginx.conf
+│   └── package.json
+│
+├── docker-compose.yml            # Orquestração
+├── .gitignore
+└── README.md
+```
 
- ├── public/            # Arquivos estáticos
- 
- ├── src/
- 
- │   ├── components/    # Componentes reutilizáveis (Card, Tabela, Formulários)
- 
- │   ├── pages/         # Páginas principais (Login, Dashboard, Estoque)
- 
- │   ├── App.jsx        # Componente raiz
- 
- │   ├── main.jsx       # Ponto de entrada
- 
- │   └── styles/        # Estilizações globais
- 
- ├── package.json
- 
- └── vite.config.js
+---
 
-## ⚙️ Como Rodar o Projeto
-1. Clonar o repositório
-git clone git@github.com:guilhermesandrade/ArmazenaAi.git
-cd ArmazenaAi
+## 🤖 Inteligência Artificial
 
-2. Instalar dependências
-npm install
+### Tecnologia Implementada
 
-3. Rodar em ambiente de desenvolvimento
-npm run dev
+O sistema utiliza **Machine Learning real** para previsão de demanda:
 
-4. Gerar build de produção
-npm run build
+#### Algoritmo: Regressão Polinomial
+- Treina modelo com histórico de vendas
+- Captura tendências não-lineares
+- Faz previsões baseadas em padrões aprendidos
 
-## 📊 Futuras Melhorias
+#### Análises Estatísticas
+- **Média diária de vendas**
+- **Desvio padrão** (volatilidade)
+- **Mediana** para valores atípicos
+- **Cálculo de confiabilidade** (Alta/Média/Baixa)
 
-Integração com banco de dados (MongoDB ou SQL).
+#### Detecção de Padrões
+- **Tendências**: Crescente Acelerado, Crescente, Estável, Decrescente, Decrescente Acelerado
+- **Sazonalidade**: Análise por dia da semana
+- **Ajuste automático**: Previsões ajustadas conforme padrões detectados
 
-Sistema de autenticação de usuários (login/cadastro).
+#### Previsões
+- **7 dias**: Demanda estimada para próxima semana
+- **30 dias**: Demanda estimada para próximo mês
+- **Priorização**: Alta, Média ou Baixa
+- **Recomendações**: Ações sugeridas com níveis de urgência
 
-Relatórios de vendas e estatísticas do estoque.
+### Como Funciona
 
-Exportação de dados para Excel/PDF.
+1. Sistema analisa movimentações de **saída tipo "venda"**
+2. Agrupa vendas por dia
+3. Treina modelo de regressão polinomial
+4. Detecta tendências e sazonalidade
+5. Faz previsões para 7 e 30 dias
+6. Ajusta previsões com base em padrões
+7. Compara com estoque atual
+8. Gera recomendações inteligentes
 
-Deploy em produção (Vercel, Netlify ou Firebase Hosting).
+### Exemplo de Resposta da IA
 
-## 👨‍💻 Autores
+```json
+{
+  "produto": "Camiseta Básica Preta",
+  "estoqueAtual": 15,
+  "previsao7dias": 25,
+  "previsao30dias": 100,
+  "recomendacao": "🔴 CRÍTICO - Reposição imediata necessária! Estoque atual (15) é insuficiente para os próximos 7 dias (demanda prevista: 25 unidades). Tendência crescente detectada - considere aumentar pedidos.",
+  "metodo": "Regressão Polinomial (ML)",
+  "analise": {
+    "tendencia": "Crescente",
+    "volatilidade": "2.5",
+    "confiabilidade": "Alta",
+    "sazonalidade": {
+      "diaMaisVendas": "Sáb",
+      "fatorSazonalidade": 1.8
+    }
+  }
+}
+```
 
-Projeto desenvolvido pelo Grupo composto por:
-- Guilherme Andrade
-- Thullio Ferreira
-- Gabriel Lucca
-- Guilherme Imada
-- Gabriel Piccirilo
-- Carlos Eduardo 
+---
 
-📌 Sistemas de Informação – Uni-FACEF
+## 🔒 Segurança
+
+### Implementações de Segurança
+
+✅ **Criptografia de Senhas**
+- Bcrypt com salt rounds configurável
+- Hash irreversível
+- Comparação segura
+
+✅ **Autenticação JWT**
+- Token assinado com secret
+- Expiração configurável
+- Validação em todas as rotas privadas
+
+✅ **Proteção de Rotas**
+- Middleware de autenticação
+- Verificação de token
+- Redirecionamento automático
+
+✅ **Validação de Dados**
+- Validação no frontend e backend
+- Sanitização de inputs
+- Prevenção de SQL/NoSQL Injection
+
+✅ **CORS Configurado**
+- Origens permitidas definidas
+- Headers seguros
+
+✅ **Variáveis de Ambiente**
+- Credenciais fora do código
+- .env não versionado
+- Secrets seguros
+
+---
+
+## 🚀 Deploy
+
+### Aplicação Online
+
+**Frontend:** [https://armazenaai-web.fly.dev/](https://armazenaai-web.fly.dev/)
+**Backend:** [https://armazenaai-api.fly.dev/](https://armazenaai-api.fly.dev/)
+
+### Plataforma de Deploy
+
+- **Fly.io** - Hospedagem de containers
+- Build automático via Dockerfile
+- Deploy via GitHub (CI/CD)
+- Escalabilidade automática
+- HTTPS configurado
+
+### Como Fazer Deploy
+
+```bash
+# 1. Instalar Fly.io CLI
+curl -L https://fly.io/install.sh | sh
+
+# 2. Login
+fly auth login
+
+# 3. Deploy da API
+cd api
+fly deploy
+
+# 4. Deploy do Frontend
+cd ../web
+fly deploy
+```
+
+---
+
+## 👥 Equipe
+
+Projeto desenvolvido por:
+
+- **Guilherme Andrade**
+- **Thullio Ferreira**
+- **Gabriel Lucca**
+- **Guilherme Imada**
+- **Gabriel Piccirilo**
+- **Carlos Eduardo**
+
+**📚 Curso:** Sistemas de Informação
+**🏫 Instituição:** Uni-FACEF
+**📅 Ano:** 2024
+
+---
+
+## 📝 Licença
+
+Este projeto é um trabalho acadêmico desenvolvido para fins educacionais.
+
+---
+
+## 🙏 Agradecimentos
+
+- **Professor:** Por orientar e apoiar o desenvolvimento
+- **Equipe:** Pela colaboração e dedicação
+- **Comunidade Open Source:** Pelas ferramentas incríveis
+
+---
+
+## 📞 Contato
+
+Para dúvidas ou sugestões sobre o projeto, entre em contato através do GitHub:
+
+🔗 [github.com/ArmazenaAI/ArmazenaAi](https://github.com/ArmazenaAI/ArmazenaAi)
+
+---
+
+**Desenvolvido com ❤️ pela equipe ArmazenaAi**

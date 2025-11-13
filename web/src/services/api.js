@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: import.meta.env.VITE_API_URL || '/api',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -134,6 +134,21 @@ export const stockService = {
 
   getStats: async (filters = {}) => {
     const response = await api.get('/stock/stats', { params: filters });
+    return response.data;
+  },
+};
+
+// Serviços de IA
+export const aiService = {
+  predictDemand: async (productId, days = 30) => {
+    const response = await api.get(`/ai/predict/${productId}`, {
+      params: { days },
+    });
+    return response.data;
+  },
+
+  getReplenishmentSuggestions: async () => {
+    const response = await api.get('/ai/replenishment');
     return response.data;
   },
 };
