@@ -1,7 +1,7 @@
 FROM node:18-alpine AS build
 
 # Build com a variável de ambiente da API
-ARG VITE_API_URL=https://armazenaai-api.fly.dev
+ARG VITE_API_URL=https://armazenaai-api.fly.dev/api
 ENV VITE_API_URL=$VITE_API_URL
 
 WORKDIR /app
