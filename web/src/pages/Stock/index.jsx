@@ -135,7 +135,7 @@ const Stock = () => {
       key: 'tipo',
       render: (value) => (
         <span className={`badge badge-${value}`}>
-          {value === 'entrada' ? '➕ Entrada' : '➖ Saída'}
+          {value === 'entrada' ? 'Entrada' : 'Saída'}
         </span>
       ),
     },
@@ -214,8 +214,8 @@ const Stock = () => {
                     required
                     className="input-field"
                   >
-                    <option value="entrada">➕ Entrada (Adicionar ao Estoque)</option>
-                    <option value="saida">➖ Saída (Remover do Estoque)</option>
+                    <option value="entrada">Entrada (Adicionar ao Estoque)</option>
+                    <option value="saida">Saída (Remover do Estoque)</option>
                   </select>
                 </div>
 
