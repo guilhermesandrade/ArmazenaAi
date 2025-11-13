@@ -467,24 +467,6 @@ O sistema utiliza **Machine Learning real** para previsão de demanda:
 - Escalabilidade automática
 - HTTPS configurado
 
-### Como Fazer Deploy
-
-```bash
-# 1. Instalar Fly.io CLI
-curl -L https://fly.io/install.sh | sh
-
-# 2. Login
-fly auth login
-
-# 3. Deploy da API
-cd api
-fly deploy
-
-# 4. Deploy do Frontend
-cd ../web
-fly deploy
-```
-
 ---
 
 ## 👥 Equipe
@@ -500,7 +482,7 @@ Projeto desenvolvido por:
 
 **📚 Curso:** Sistemas de Informação
 **🏫 Instituição:** Uni-FACEF
-**📅 Ano:** 2024
+**📅 Ano:** 2025
 
 ---
 
@@ -518,12 +500,5 @@ Este projeto é um trabalho acadêmico desenvolvido para fins educacionais.
 
 ---
 
-## 📞 Contato
-
-Para dúvidas ou sugestões sobre o projeto, entre em contato através do GitHub:
-
-🔗 [github.com/ArmazenaAI/ArmazenaAi](https://github.com/ArmazenaAI/ArmazenaAi)
-
----
-
 **Desenvolvido com ❤️ pela equipe ArmazenaAi**
+
