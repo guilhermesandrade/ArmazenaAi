@@ -148,7 +148,7 @@ Projeto desenvolvido pelo Grupo composto por:
 - Guilherme Andrade
 - Thullio Ferreira
 - Gabriel Lucca
-- Guilherme mamada
+- Guilherme Imada
 - Gabriel Piccirilo
 - Carlos Eduardo 
 

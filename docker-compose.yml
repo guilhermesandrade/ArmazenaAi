@@ -1,44 +1,44 @@
-version: '3.8'
+version: "3.9"
 
 services:
-  mongodb:
+  backend:
+    build: ./backend
+    container_name: armazenaai-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/armazenaai
+      - NODE_ENV=development
+      - JWT_SECRET=supersecreto123
+    depends_on:
+      - mongo
+    volumes:
+      - ./backend:/app
+    command: npm start
+
+  frontend:
+    build: ./frontend
+    container_name: armazenaai-frontend
+    restart: always
+    ports:
+      - "3000:80"  # nginx expõe a porta 80
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://localhost:5000
+    volumes:
+      - ./frontend:/app
+    command: npm run dev -- --host
+
+  mongo:
     image: mongo:6
-    container_name: armazenaai-mongodb
+    container_name: armazenaai-mongo
     restart: always
     ports:
       - "27017:27017"
     volumes:
-      - mongodb_data:/data/db
-    environment:
-      MONGO_INITDB_DATABASE: armazenaai
-
-  api:
-    build: ./api
-    container_name: armazenaai-api
-    restart: always
-    ports:
-      - "3000:3000"
-    environment:
-      - PORT=3000
-      - MONGODB_URI=mongodb://mongodb:27017/armazenaai
-      - JWT_SECRET=uma_chave_super_secreta_aqui
-      - JWT_EXPIRES_IN=1h
-      - SALT_ROUNDS=10
-      - NODE_ENV=production
-    depends_on:
-      - mongodb
-    volumes:
-      - ./api:/app
-      - /app/node_modules
-
-  web:
-    build: ./web
-    container_name: armazenaai-web
-    restart: always
-    ports:
-      - "80:80"
-    depends_on:
-      - api
+      - mongo_data:/data/db
 
 volumes:
-  mongodb_data:
+  mongo_data:
