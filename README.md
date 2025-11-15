@@ -26,6 +26,31 @@ Com ele é possível evitar problemas como:
 
 ---
 
+## Imagens do Sistema:
+
+### Login
+<img src="caminho_da_imagem">
+
+### Dashboard
+<img src="caminho_da_imagem">
+
+### Produtos
+<img src="caminho_da_imagem">
+
+### Novo Produto
+<img src="caminho_da_imagem">
+
+### Estoque
+<img src="caminho_da_imagem">
+
+### Nova movimentação
+<img src="caminho_da_imagem">
+
+### Sugestões da IA
+<img src="caminho_da_imagem">
+
+---
+
 ## ✅ Requisitos Técnicos Implementados
 
 Este projeto atende aos requisitos técnicos da disciplina:
@@ -501,4 +526,5 @@ Este projeto é um trabalho acadêmico desenvolvido para fins educacionais.
 ---
 
 **Desenvolvido com ❤️ pela equipe ArmazenaAi**
+
 
