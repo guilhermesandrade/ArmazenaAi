@@ -460,6 +460,19 @@ O sistema utiliza **Machine Learning real** para previsão de demanda:
 
 ---
 
+## Minha Contribuição
+
+Durante o desenvolvimento deste projeto, contribuí das seguintes maneiras:
+
+- Criação do **primeiro README** do projeto.
+- Edição e **finalização do README** final.
+- Criação da **base inicial do projeto**.
+- Participação no **planejamento e na ideia do projeto**.
+- Criação de **imagens e vídeo** para documentação e apresentação.
+- Realização de **testes** para validação das funcionalidades.
+- Desenvolvimento da **primeira versão da tela do dashboard**.
+- Entre outras tarefas...
+
 ## 👥 Equipe
 
 Projeto desenvolvido por:
